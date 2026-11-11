@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>天使与主人 ♡ 揭露仪式</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: "Microsoft JhengHei", "Noto Sans CJK TC", Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    overflow-x: hidden;
+    overflow-y: auto;
+    color: #6d5262;
+    background: linear-gradient(135deg, #ffe8f1, #f5eaff, #fff4d9);
+    padding: 24px 0 40px;
+    -webkit-text-size-adjust: 100%;
+    touch-action: pan-y;
+}
+
+.cloud {
+    position: fixed;
+    background: rgba(255,255,255,.65);
+    border-radius: 100px;
+    width: 150px;
+    height: 45px;
+    filter: blur(1px);
+}
+
+.cloud:before,
+.cloud:after {
+    content: "";
+    position: absolute;
+    background: inherit;
+    border-radius: 50%;
+}
+
+.cloud:before {
+    width: 65px;
+    height: 65px;
+    left: 20px;
+    bottom: 10px;
+}
+
+.cloud:after {
+    width: 80px;
+    height: 80px;
+    right: 20px;
+    bottom: 5px;
+}
+
+.cloud1 {
+    top: 8%;
+    left: -30px;
+}
+
+.cloud2 {
+    bottom: 8%;
+    right: -30px;
+    transform: scale(.8);
+}
+
+.float {
+    position: fixed;
+    font-size: 30px;
+    opacity: .65;
+    animation: floating 3s ease-in-out infinite;
+}
+
+@keyframes floating {
+    0%,100% {
+        transform: translateY(0) rotate(-5deg);
+    }
+    50% {
+        transform: translateY(-15px) rotate(5deg);
+    }
+}
+
+/* 主卡片 */
+.container {
+    position: relative;
+    z-index: 2;
+    width: 92%;
+    max-width: 680px;
+    padding: 34px 25px;
+    background: rgba(255,255,255,.86);
+    border-radius: 30px;
+    border: 4px solid rgba(255,255,255,.9);
+    box-shadow: 0 20px 60px rgba(167,117,145,.22);
+    backdrop-filter: blur(10px);
+    text-align: center;
+}
+
+/* 标题 */
+h1 {
+    margin: 0;
+    font-size: 30px;
+    color: #d4779d;
+    letter-spacing: 2px;
+    text-shadow: 2px 2px 0 white;
+}
+
+.subtitle {
+    margin-top: 7px;
+    color: #a88b9a;
+    font-size: 15px;
+}
+
+/* 进度 */
+.counter {
+    display: inline-block;
+    margin-top: 18px;
+    padding: 7px 18px;
+    background: #fff0f6;
+    border-radius: 30px;
+    color: #cf7599;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+/* 天使 */
+.label {
+    margin-top: 24px;
+    margin-bottom: 5px;
+    color: #b88ba2;
+    font-size: 16px;
+}
+
+#angel {
+    min-height: 65px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 38px;
+    font-weight: bold;
+    color: #d26f98;
+    text-shadow: 2px 2px 0 #fff;
+}
+
+.angelReveal {
+    animation: angelPop .75s cubic-bezier(.2,.9,.3,1.4);
+}
+
+@keyframes angelPop {
+    0% {
+        opacity: 0;
+        transform: scale(.3) rotate(-10deg);
+    }
+    60% {
+        opacity: 1;
+        transform: scale(1.15) rotate(4deg);
+    }
+    100% {
+        transform: scale(1) rotate(0);
+    }
+}
+
+.drawing {
+    animation: shake .08s infinite;
+    color: #c89bb0 !important;
+}
+
+@keyframes shake {
+    0% { transform: translateX(-4px); }
+    50% { transform: translateX(4px); }
+    100% { transform: translateX(-4px); }
+}
+
+/* 箭头 */
+.arrow {
+    font-size: 30px;
+    color: #e19ab7;
+    margin: 6px 0;
+    animation: bounce 1s infinite alternate;
+}
+
+@keyframes bounce {
+    from { transform: translateY(-3px); }
+    to { transform: translateY(5px); }
+}
+
+/* 主人 */
+.ownerBox {
+    min-height: 70px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#owner {
+    font-size: 32px;
+    font-weight: bold;
+    color: #9b82c4;
+    text-shadow: 2px 2px 0 white;
+}
+
+.question {
+    font-size: 48px !important;
+    color: #c7a7ba !important;
+    animation: question .7s infinite alternate;
+}
+
+@keyframes question {
+    from { transform: rotate(-8deg) scale(.9); }
+    to { transform: rotate(8deg) scale(1.1); }
+}
+
+.ownerReveal {
+    animation: ownerPop .8s cubic-bezier(.2,.9,.3,1.4);
+}
+
+@keyframes ownerPop {
+    0% {
+        opacity: 0;
+        transform: scale(.2) rotate(12deg);
+    }
+    60% {
+        opacity: 1;
+        transform: scale(1.2) rotate(-4deg);
+    }
+    100% {
+        transform: scale(1) rotate(0);
+    }
+}
+
+/* 成功文字 */
+#success {
+    min-height: 28px;
+    margin-top: 8px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #df7fa3;
+    opacity: 0;
+}
+
+.successShow {
+    animation: success .7s forwards;
+}
+
+@keyframes success {
+    0% {
+        opacity: 0;
+        transform: scale(.5);
+    }
+    70% {
+        opacity: 1;
+        transform: scale(1.15);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* 按钮 */
+button {
+    border: none;
+    border-radius: 50px;
+    background: linear-gradient(135deg, #ff9fc1, #d7a9ed);
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    padding: 12px 24px;
+    box-shadow: 0 7px 18px rgba(207,126,165,.25);
+    transition: .2s;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+}
+
+button:hover {
+    transform: translateY(-2px);
+}
+
+button:disabled {
+    opacity: .4;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.primary {
+    margin-top: 20px;
+    font-size: 18px;
+    padding: 14px 34px;
+}
+
+/* 名单设置收缩按钮 */
+.toggle-settings {
+    display: block;
+    width: 100%;
+    margin-top: 28px;
+    padding: 13px 18px;
+    border: 1px solid #f2cbdc;
+    border-radius: 15px;
+    background: #fff0f6;
+    color: #bd7898;
+    font-size: 15px;
+    box-shadow: none;
+}
+
+.toggle-settings:hover {
+    background: #ffe5ef;
+    transform: none;
+}
+
+#settingsContent.is-hidden {
+    display: none;
+}
+
+/* 名单设置 */
+.editor {
+    margin-top: 14px;
+    text-align: left;
+    background: #fff8fb;
+    border: 1px solid #f5dce8;
+    border-radius: 20px;
+    padding: 18px;
+}
+
+.editor h2 {
+    font-size: 17px;
+    color: #bd7898;
+    margin: 0 0 12px;
+}
+
+.entry {
+    display: grid;
+    grid-template-columns: 1fr 1fr auto;
+    gap: 8px;
+    margin-bottom: 9px;
+}
+
+input {
+    min-width: 0;
+    width: 100%;
+    min-height: 46px;
+    padding: 11px 12px;
+    border: 1px solid #ead3df;
+    border-radius: 12px;
+    background: white;
+    color: #6d5262;
+    font-size: 14px;
+    outline: none;
+}
+
+input:focus {
+    border-color: #d89ab7;
+}
+
+.remove {
+    padding: 8px 12px;
+    background: #ead9e5;
+    color: #8e6d82;
+    box-shadow: none;
+}
+
+.editorActions {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 12px;
+}
+
+.editorActions button {
+    font-size: 14px;
+    padding: 10px 16px;
+}
+
+.secondary {
+    background: #e9dff3;
+    color: #806b9b;
+    box-shadow: none;
+}
+
+.danger {
+    background: #f3dce5;
+    color: #a76c83;
+    box-shadow: none;
+}
+
+.hint {
+    font-size: 13px;
+    color: #a88b9a;
+    margin: 12px 0 0;
+    line-height: 1.6;
+}
+
+.heart {
+    position: fixed;
+    bottom: -30px;
+    font-size: 25px;
+    pointer-events: none;
+    z-index: 10;
+    animation: heartUp 1.8s ease-out forwards;
+}
+
+@keyframes heartUp {
+    0% {
+        opacity: 0;
+        transform: translateY(0) scale(.5);
+    }
+    15% { opacity: 1; }
+    100% {
+        opacity: 0;
+        transform: translateY(-70vh) translateX(var(--move)) scale(1.3) rotate(25deg);
+    }
+}
+
+/* 手机适配 */
+@media(max-width:600px) {
+    body {
+        padding: 12px 0 28px;
+    }
+
+    .container {
+        width: 94%;
+        padding: 24px 13px;
+    }
+
+    h1 {
+        font-size: 26px;
+    }
+
+    #angel {
+        font-size: 30px;
+    }
+
+    #owner {
+        font-size: 25px;
+    }
+
+    .entry {
+        grid-template-columns: minmax(0,1fr) minmax(0,1fr);
+        gap: 7px;
+    }
+
+    .entry input {
+        font-size: 16px;
+    }
+
+    .remove {
+        grid-column: 1 / -1;
+        min-height: 42px;
+    }
+
+    .editorActions button {
+        min-height: 44px;
+        flex: 1 1 auto;
+    }
+
+    .primary {
+        font-size: 16px;
+        min-height: 48px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="cloud cloud1"></div>
+<div class="cloud cloud2"></div>
+
+<div class="float" style="left:8%;top:20%">♡</div>
+<div class="float" style="right:10%;top:15%;animation-delay:.5s">✦</div>
+<div class="float" style="left:15%;bottom:18%;animation-delay:1s">✧</div>
+<div class="float" style="right:15%;bottom:25%;animation-delay:1.5s">♡</div>
+
+<main class="container">
+
+    <h1>🎀 天使与主人 🎀</h1>
+    <div class="subtitle">✨ 神秘揭露仪式 ✨</div>
+
+    <div class="counter" id="counter">第 0 / 0 组</div>
+
+    <div class="label">👼 今天的天使是……</div>
+    <div id="angel">准备好了吗？ ♡</div>
+
+    <div class="arrow">↓</div>
+
+    <div class="label">💝 他的主人是……</div>
+
+    <div class="ownerBox">
+        <div id="owner" class="question">？</div>
+    </div>
+
+    <div id="success"></div>
+
+    <button class="primary" id="next" disabled>
+        🎁 揭露下一位
+    </button>
+
+    <button
+        type="button"
+        class="toggle-settings"
+        id="toggleSettings"
+        aria-expanded="true">
+        收起名单设置 ⌄
+    </button>
+
+    <div id="settingsContent">
+
+        <section class="editor">
+
+            <h2>📝 配对名单设置</h2>
+
+            <div id="entries"></div>
+
+            <div class="editorActions">
+                <button type="button" class="secondary" id="add">
+                    ＋ 添加一组
+                </button>
+
+                <button type="button" id="save">
+                    保存名单
+                </button>
+
+                <button type="button" class="danger" id="reset">
+                    清空全部
+                </button>
+            </div>
+
+            <p class="hint" id="status" aria-live="polite"></p>
+
+        </section>
+
+    </div>
+
+</main>
+
+<script>
+let pairs = [];
+let current = 0;
+let animating = false;
+let saved = false;
+
+const entries = document.getElementById("entries");
+const nextButton = document.getElementById("next");
+const counter = document.getElementById("counter");
+const angel = document.getElementById("angel");
+const owner = document.getElementById("owner");
+const success = document.getElementById("success");
+const statusText = document.getElementById("status");
+
+/* 名单设置收起与展开 */
+const toggleSettings = document.getElementById("toggleSettings");
+const settingsContent = document.getElementById("settingsContent");
+
+toggleSettings.addEventListener("click", function() {
+    const isHidden = settingsContent.classList.toggle("is-hidden");
+
+    if (isHidden) {
+        toggleSettings.textContent = "显示名单设置 ＋";
+        toggleSettings.setAttribute("aria-expanded", "false");
+    } else {
+        toggleSettings.textContent = "收起名单设置 ⌄";
+        toggleSettings.setAttribute("aria-expanded", "true");
+    }
+});
+
+/* 添加一组名单 */
+function addEntry(angelName = "", ownerName = "") {
+    const row = document.createElement("div");
+    row.className = "entry";
+
+    const angelInput = document.createElement("input");
+    angelInput.placeholder = "天使姓名";
+    angelInput.value = angelName;
+    angelInput.setAttribute("aria-label", "天使姓名");
+
+    const ownerInput = document.createElement("input");
+    ownerInput.placeholder = "主人姓名";
+    ownerInput.value = ownerName;
+    ownerInput.setAttribute("aria-label", "主人姓名");
+
+    const removeButton = document.createElement("button");
+    removeButton.type = "button";
+    removeButton.className = "remove";
+    removeButton.textContent = "删除";
+
+    removeButton.addEventListener("click", () => {
+        row.remove();
+        statusText.textContent = "名单有变动，请重新保存后再揭露。";
+        nextButton.disabled = true;
+        saved = false;
+    });
+
+    [angelInput, ownerInput].forEach(input => {
+        input.addEventListener("input", () => {
+            saved = false;
+            nextButton.disabled = true;
+            statusText.textContent = "名单有变动，请重新保存。";
+        });
+    });
+
+    row.append(angelInput, ownerInput, removeButton);
+    entries.appendChild(row);
+}
+
+/* 更新进度 */
+function updateCounter() {
+    counter.textContent = `第 ${current} / ${pairs.length} 组`;
+}
+
+/* 重置揭露画面 */
+function resetRevealDisplay() {
+    current = 0;
+    animating = false;
+
+    angel.className = "";
+    angel.textContent = pairs.length
+        ? "准备好了吗？ ♡"
+        : "请先添加配对名单 ♡";
+
+    owner.className = "question";
+    owner.textContent = "？";
+
+    success.className = "";
+    success.textContent = "";
+
+    updateCounter();
+}
+
+/* 添加名单按钮 */
+document.getElementById("add").addEventListener("click", () => {
+    addEntry();
+});
+
+/* 保存名单 */
+document.getElementById("save").addEventListener("click", () => {
+
+    const rows = [...entries.querySelectorAll(".entry")];
+
+    const nextPairs = rows.map(row => {
+        const inputs = row.querySelectorAll("input");
+
+        return [
+            inputs[0].value.trim(),
+            inputs[1].value.trim()
+        ];
+    });
+
+    if (nextPairs.some(pair => !pair[0] || !pair[1])) {
+        statusText.textContent =
+            "请填写每一组的天使和主人；不需要的空白行可以删除。";
+        return;
+    }
+
+    if (!nextPairs.length) {
+        pairs = [];
+        saved = false;
+
+        resetRevealDisplay();
+
+        nextButton.disabled = true;
+
+        statusText.textContent =
+            "名单目前是空的。添加配对后即可开始。";
+
+        return;
+    }
+
+    pairs = nextPairs;
+    saved = true;
+
+    resetRevealDisplay();
+
+    nextButton.disabled = false;
+
+    statusText.textContent =
+        `已保存 ${pairs.length} 组配对，可以开始揭露！`;
+
+});
+
+/* 清空全部名单 */
+document.getElementById("reset").addEventListener("click", () => {
+
+    pairs = [];
+    entries.innerHTML = "";
+
+    addEntry();
+
+    entries.querySelectorAll("input").forEach(input => {
+        input.value = "";
+    });
+
+    saved = false;
+
+    resetRevealDisplay();
+
+    nextButton.disabled = true;
+
+    statusText.textContent = "已清空全部配对资料。";
+
+});
+
+/* 爱心动画 */
+function createHearts() {
+
+    for (let i = 0; i < 14; i++) {
+
+        const heart = document.createElement("div");
+
+        heart.className = "heart";
+
+        heart.textContent =
+            ["♡", "♥", "💗", "💖", "✦"][
+                Math.floor(Math.random() * 5)
+            ];
+
+        heart.style.left =
+            (40 + Math.random() * 20) + "%";
+
+        heart.style.setProperty(
+            "--move",
+            (Math.random() * 180 - 90) + "px"
+        );
+
+        heart.style.animationDelay =
+            (Math.random() * .4) + "s";
+
+        document.body.appendChild(heart);
+
+        setTimeout(() => heart.remove(), 2500);
+
+    }
+
+}
+
+/* 揭露天使 */
+function reveal() {
+
+    if (animating || !saved || current >= pairs.length) {
+        return;
+    }
+
+    animating = true;
+    nextButton.disabled = true;
+
+    const [finalAngel, finalOwner] = pairs[current];
+
+    current++;
+    updateCounter();
+
+    owner.className = "question";
+    owner.textContent = "？";
+
+    success.className = "";
+    success.textContent = "";
+
+    angel.className = "drawing";
+
+    let count = 0;
+
+    const rolling = setInterval(() => {
+
+        const randomPair =
+            pairs[Math.floor(Math.random() * pairs.length)];
+
+        angel.textContent = randomPair[0];
+
+        count++;
+
+        if (count >= 24) {
+
+            clearInterval(rolling);
+
+            angel.className = "";
+            angel.textContent = finalAngel;
+
+            void angel.offsetWidth;
+
+            angel.classList.add("angelReveal");
+
+            setTimeout(() => {
+                revealOwner(finalOwner);
+            }, 900);
+
+        }
+
+    }, 65);
+
+}
+
+/* 揭露主人 */
+function revealOwner(finalOwner) {
+
+    owner.className = "ownerReveal";
+    owner.textContent = finalOwner;
+
+    setTimeout(() => {
+
+        createHearts();
+
+        animating = false;
+
+        if (current < pairs.length) {
+
+            success.textContent = "💗 配对成功啦！ ✨";
+            success.className = "successShow";
+
+            nextButton.disabled = false;
+
+        } else {
+
+            success.textContent = "🎉 全部配对揭露完毕！ 🎀";
+            success.className = "successShow";
+
+            nextButton.disabled = true;
+
+        }
+
+    }, 650);
+
+}
+
+/* 下一位按钮 */
+nextButton.addEventListener("click", reveal);
+
+/* 初始显示一组空白输入栏 */
+addEntry();
+
+</script>
+
+</body>
+</html>
